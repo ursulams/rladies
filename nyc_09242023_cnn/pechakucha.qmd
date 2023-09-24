@@ -1,0 +1,109 @@
+---
+title: "intro to image classification with convolutional neural networks"
+title-slide-attributes:
+  data-background-image: images/filecode.png
+subtitle: "r-ladies nyc lightning talk"
+author: "ursula kaczmarek, democracy.works"
+execute:
+  echo: false
+  eval: true
+format:
+  revealjs: 
+    auto-slide: 20000
+    auto-slide-stoppable: false
+    logo: images/rladies_hex.png
+    include-in-header:
+      text: |
+        <style>
+        #title-slide .title {
+          color: #72e3dc;
+          font-size: 1.6em
+        }
+        p{
+          color: #f44336;
+        }
+        .quarto-title-author-name {
+        color: #f44336;
+        }
+        </style>
+---
+
+------------------------------------------------------------------------
+
+![](images/cv.gif)
+
+------------------------------------------------------------------------
+
+![](images/smokey.gif)
+
+------------------------------------------------------------------------
+
+![](images/bug.png)
+
+------------------------------------------------------------------------
+
+![](images/steps.jpg){fig-align="center" width="685" height="716"}
+
+------------------------------------------------------------------------
+
+::: {.column-page layout-ncol="2"}
+```{python}
+from numpy.linalg import norm
+import matplotlib.pyplot as plt
+
+def plot(im, interp=False):
+    f = plt.figure(frameon=True)
+    plt.imshow(im)
+
+def plots(ims, interp=False, titles=None):
+    ims=np.array(ims)
+    mn,mx=ims.min(),ims.max()
+    f = plt.figure(figsize=(6,18))
+    for i in range(len(ims)):
+        sp=f.add_subplot(1, len(ims), i+1)
+        if not titles is None: sp.set_title(titles[i], fontsize=10)
+        plt.imshow(ims[i], interpolation=None if interp else 'none', vmin=mn,vmax=mx)
+
+plt.gray()
+plt.close()
+```
+
+![](images/lens.png){fig-align="center" width="400" height="400"}
+
+```{python}
+import numpy as np
+top = [[-1,-1,-1],
+     [ 1, 1, 1],
+     [ 0, 0, 0]]
+     
+br = [[ 0, 0, 1],
+    [ 0, 1,-1.5],
+    [ 1,-1.5, 0]]
+
+straights = [np.rot90(top,i) for i in range(4)]
+diags = [np.rot90(br, i) for i in range(4)]
+
+plots(straights)
+plots(diags)
+```
+:::
+
+------------------------------------------------------------------------
+
+![](images/layers.gif)
+
+::: footer
+https://poloclub.github.io/cnn-explainer/
+:::
+
+------------------------------------------------------------------------
+
+![](images/relu.png)
+
+------------------------------------------------------------------------
+
+![](images/pooled.png)
+
+------------------------------------------------------------------------
+
+![](images/full.jpg){fig-align="center"}
